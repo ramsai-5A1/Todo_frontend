@@ -6,15 +6,15 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import AddCourse from './AddCourse';
 
 function App() {
-
   return (
     <div style={{width: "100vw", 
       height: "100vh", 
       backgroundColor: "#eeeee4"}}
 
     >
-    <Appbar />
+    
     <Router>
+      <Appbar />
       <Routes>
         <Route path="addcourse" element={<AddCourse />} />
         <Route path="/login" element={<Signin courseName={"coursera"}/>}/>
