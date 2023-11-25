@@ -1,5 +1,5 @@
 import './Signup.css';
-import { Button, TextField } from '@mui/material';
+import { Button, TextField, Card } from '@mui/material';
 
 function Signup(props) {
     return <div>
@@ -14,11 +14,10 @@ function Signup(props) {
         </center>
 
         <center>
-            <div style={{
-                border: "2px solid black",
-                width: 480,
-                padding: 20
-            }}>
+            <Card 
+                variant={"outlined"}
+                style={{width: 400, padding: 20}}
+            >
 
                 <TextField 
                     fullWidth={true}
@@ -40,7 +39,8 @@ function Signup(props) {
                     variant='contained'>
                     Sign up
                 </Button>
-            </div>
+
+            </Card>
         </center>
 
     </div>
