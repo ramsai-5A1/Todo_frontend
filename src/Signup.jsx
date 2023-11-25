@@ -1,15 +1,17 @@
 import './Signup.css';
-import { Button, TextField, Card } from '@mui/material';
+import { Button, TextField, Card, Typography } from '@mui/material';
 
 function Signup(props) {
     return <div>
 
         <center>
             <div style={{
-                marginTop: 200,
+                paddingTop: 150,
                 marginBottom: 10
             }}>
-                Welcome to {props.courseName}. Signup below.
+                <Typography varient={"h5"}>
+                    Welcome to {props.courseName}. Signup below.
+                </Typography>
             </div>
         </center>
 
