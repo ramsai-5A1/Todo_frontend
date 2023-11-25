@@ -1,9 +1,12 @@
 import './Signin.css';
 import { Button, TextField, Card, Typography } from '@mui/material';
+import { useState } from 'react';
 
 function Signin(props) {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+ 
     return <div>
-
             <div style={{
                 paddingTop: 150,
                 marginBottom: 10,
@@ -27,6 +30,9 @@ function Signin(props) {
                     }}>
 
                     <TextField 
+                        onChange={(e) => {
+                           setEmail(e.target.value);
+                        }}
                         fullWidth={true}
                         id="outlined-basic" 
                         label="Email" 
@@ -34,6 +40,9 @@ function Signin(props) {
                     />
                     <br/><br/>
                     <TextField 
+                        onChange={(e) => {
+                            setPassword(e.target.value);
+                        }}
                         fullWidth={true}
                         id="outlined-basic" 
                         label="Password" 
@@ -43,7 +52,18 @@ function Signin(props) {
                     <br/><br/>
                     <Button 
                         size={"large"}
-                        variant='contained'>
+                        variant='contained'
+                        onClick={() => {
+                            let curr = {
+                                userName: email,
+                                password: password
+                            };
+                            console.log(email);
+                            console.log(password);
+                            localStorage.setItem("token", "tempToken");
+                        }}
+
+                        >
                         Sign-in
                     </Button>
 

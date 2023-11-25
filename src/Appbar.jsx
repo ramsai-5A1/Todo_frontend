@@ -7,7 +7,7 @@ function Appbar() {
         justifyContent: "space-between",
         padding: 4
         }}>
-        <div style={{backgroundColor: "red"}}>
+        <div style={{backgroundColor: ""}}>
             <Typography variant={"h6"}>Coursera</Typography>
         </div>
 
