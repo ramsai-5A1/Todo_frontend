@@ -1,7 +1,7 @@
-import './Signup.css';
+import './Signin.css';
 import { Button, TextField, Card, Typography } from '@mui/material';
 
-function Signup(props) {
+function Signin(props) {
     return <div>
 
             <div style={{
@@ -11,7 +11,7 @@ function Signup(props) {
                 justifyContent: "center"
             }}>
                 <Typography varient={"h5"}>
-                    Welcome to {props.courseName}. Signup below.
+                    Welcome back to {props.courseName}. Sign-in below.
                 </Typography>
             </div>
 
@@ -44,7 +44,7 @@ function Signup(props) {
                     <Button 
                         size={"large"}
                         variant='contained'>
-                        Sign up
+                        Sign-in
                     </Button>
 
                 </Card>
@@ -53,4 +53,4 @@ function Signup(props) {
     </div>
 }
 
-export default Signup;
+export default Signin;
