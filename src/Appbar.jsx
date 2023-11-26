@@ -1,9 +1,31 @@
 import { Typography, Button } from "@mui/material";
-import { red } from "@mui/material/colors";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Appbar() {
     const navigate = useNavigate();
+    const [userEmail, setUserEmail] = useState("OldOne");
+    const [emailThere, setEmailThere] = useState(false);
+    
+    useEffect(() => {
+        let token = localStorage.getItem("token");
+        fetch("http://localhost:3001/admin/me", {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            setUserEmail(data.userName);
+            setEmailThere(true);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    }, []);
 
     return <div style={{
         display: "flex",
@@ -15,7 +37,7 @@ function Appbar() {
         </div>
 
         <div style={{display: "flex"}}>
-            <div style={{marginRight: 10}}>
+            {!emailThere && <div style={{marginRight: 10}}>
                 <Button 
                     variant={"contained"}
                     onClick={() => {
@@ -25,9 +47,9 @@ function Appbar() {
                     >
                     Sign-up
                 </Button>
-            </div>
+            </div>}
 
-            <div>
+            {!emailThere && <div>
                 <Button 
                 variant={"contained"}
                 onClick={() => {
@@ -36,7 +58,29 @@ function Appbar() {
                 }}
                 >Sign-in
                 </Button>
-            </div>
+            </div>}
+
+            {emailThere && <div>
+                <Button 
+                variant={"contained"}
+                onClick={() => {
+                    // window.location = "/login"
+                    navigate("/login");
+                }}
+                >{userEmail}
+                </Button>
+            </div>}
+            
+            {emailThere && <div>
+                <Button 
+                variant={"contained"}
+                onClick={() => {
+                    // window.location = "/login"
+                    navigate("/login");
+                }}
+                >Log-out
+                </Button>
+            </div>}
         </div>
     </div>
 }
