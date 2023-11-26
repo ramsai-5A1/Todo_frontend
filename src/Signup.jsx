@@ -1,7 +1,12 @@
 import './Signup.css';
 import { Button, TextField, Card, Typography } from '@mui/material';
+import { useState } from 'react';
 
 function Signup(props) {
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
     return <div>
 
             <div style={{
@@ -27,6 +32,9 @@ function Signup(props) {
                     }}>
 
                     <TextField 
+                        onChange={(e) => {
+                            setEmail(e.target.value);
+                        }}
                         fullWidth={true}
                         id="outlined-basic" 
                         label="Email" 
@@ -34,6 +42,9 @@ function Signup(props) {
                     />
                     <br/><br/>
                     <TextField 
+                        onChange={(e) => {
+                            setPassword(e.target.value);
+                        }}
                         fullWidth={true}
                         id="outlined-basic" 
                         label="Password" 
@@ -42,6 +53,33 @@ function Signup(props) {
                     />
                     <br/><br/>
                     <Button 
+                        onClick={() => {
+                            let curr = {
+                                userName: email,
+                                password: password
+                            };
+
+                            fetch("http://localhost:3001/signup", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify(curr)
+                            })
+                            .then((response) => {
+                                if (!response.ok) {
+                                    throw new Error('Network response was not ok.');
+                                }
+                                return response.json();
+                            })
+                            .then((data) => {
+                                console.log(data);
+                            })
+                            .catch((err) => {
+                                console.log("Error is: ");
+                                console.log(err);
+                            })
+                        }}
                         size={"large"}
                         variant='contained'>
                         Sign up

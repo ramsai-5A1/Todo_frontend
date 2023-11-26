@@ -46,8 +46,34 @@ function AddCourse() {
             size={"medium"}
             variant='contained'
             onClick={() => {
-                console.log(`title is: ${title}`);
-                console.log(`description is: ${description}`);
+                let curr = {
+                    title: title,
+                    description: description
+                };
+
+                let token = localStorage.getItem("token");
+                fetch("http://localhost:3001/todos", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(curr)
+                })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok.');
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    console.log("Response data is: ");
+                    console.log(data);
+                })
+                .catch((err) => {
+                    console.log("Error is: ");
+                    console.log(err);
+                })
             }}
 
             >

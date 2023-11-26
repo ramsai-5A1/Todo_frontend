@@ -58,9 +58,30 @@ function Signin(props) {
                                 userName: email,
                                 password: password
                             };
-                            console.log(email);
-                            console.log(password);
-                            localStorage.setItem("token", "tempToken");
+
+                            fetch("http://localhost:3001/login", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify(curr)
+                            })
+                            .then((response) => {
+                                if (!response.ok) {
+                                    throw new Error('Network response was not ok.');
+                                }
+                                return response.json();
+                            })
+                            .then((data) => {
+                                console.log("Response data is: ");
+                                console.log(data);
+                                let token = data.token;
+                                localStorage.setItem("token", token);
+                            })
+                            .catch((err) => {
+                                console.log("Error is: ");
+                                console.log(err);
+                            })
                         }}
 
                         >
