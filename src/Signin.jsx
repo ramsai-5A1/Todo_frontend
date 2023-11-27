@@ -73,10 +73,9 @@ function Signin(props) {
                                 return response.json();
                             })
                             .then((data) => {
-                                console.log("Response data is: ");
-                                console.log(data);
                                 let token = data.token;
                                 localStorage.setItem("token", token);
+                                window.location = "/addcourse";
                             })
                             .catch((err) => {
                                 console.log("Error is: ");

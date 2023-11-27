@@ -73,7 +73,9 @@ function Signup(props) {
                                 return response.json();
                             })
                             .then((data) => {
-                                console.log(data);
+                                let token = data.token;
+                                localStorage.setItem("token", token);
+                                window.location = "/addcourse";
                             })
                             .catch((err) => {
                                 console.log("Error is: ");

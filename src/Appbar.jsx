@@ -17,7 +17,7 @@ function Appbar() {
         })
         .then((response) => {
             if(!response.ok) {
-                throw new Error('Network response was not ok.');
+                throw new Error('Network response was not okkk.');
             }
             return response.json();
         })
@@ -28,6 +28,7 @@ function Appbar() {
         .catch((err) => {
             setEmailThere(false);
             setUserEmail("");
+            console.log("ERROR WHILE ADMIN API");
             console.log(err);
         })
     }, []);
