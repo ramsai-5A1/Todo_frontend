@@ -16,6 +16,9 @@ function Appbar() {
             }
         })
         .then((response) => {
+            if(!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
             return response.json();
         })
         .then((data) => {
@@ -23,6 +26,8 @@ function Appbar() {
             setEmailThere(true);
         })
         .catch((err) => {
+            setEmailThere(false);
+            setUserEmail("");
             console.log(err);
         })
     }, []);
@@ -34,7 +39,9 @@ function Appbar() {
         }}>
         <div style={{backgroundColor: ""}}>
             <Typography variant={"h6"}>Coursera</Typography>
+            {emailThere}
         </div>
+        
 
         <div style={{display: "flex"}}>
             {!emailThere && <div style={{marginRight: 10}}>
@@ -56,7 +63,7 @@ function Appbar() {
                     // window.location = "/login"
                     navigate("/login");
                 }}
-                >Sign-in
+                >log-in
                 </Button>
             </div>}
 
@@ -65,7 +72,7 @@ function Appbar() {
                 variant={"contained"}
                 onClick={() => {
                     // window.location = "/login"
-                    navigate("/login");
+                    console.log("Clicked on email");
                 }}
                 >{userEmail}
                 </Button>
@@ -75,8 +82,10 @@ function Appbar() {
                 <Button 
                 variant={"contained"}
                 onClick={() => {
-                    // window.location = "/login"
-                    navigate("/login");
+                    localStorage.setItem("token", null);
+                    setEmailThere(false);
+                    setUserEmail("");
+                    window.location = "/login";
                 }}
                 >Log-out
                 </Button>
