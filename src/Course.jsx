@@ -8,6 +8,7 @@ function Course() {
     let { courseId } = useParams();
 
     const [courses, setCourses] = useState([]);
+    const [isupdated, setIsUpdated] = useState(false);
 
     useEffect(() => {
         let token = localStorage.getItem("token");
@@ -29,7 +30,7 @@ function Course() {
         .catch((err) => {
             console.log(err);
         })
-    }, []);
+    }, [isupdated]);
 
     let course = null;
     for(let index = 0; index < courses.length; index++) {
@@ -47,7 +48,7 @@ function Course() {
 
     return <div>
         <CourseCard course={course}/>
-        <UpdateCard course={course}/>
+        <UpdateCard course={course} setIsUpdated={setIsUpdated}/>
     </div>
 }
 
@@ -70,6 +71,7 @@ function UpdateCard(props) {
         <TextField 
             onChange={(e) => {
                 setTitle(e.target.value);
+                props.setIsUpdated(false);
             }}
             fullWidth={true}
             id="outlined-basic" 
@@ -82,6 +84,7 @@ function UpdateCard(props) {
         <TextField 
             onChange={(e) => {
                 setDescription(e.target.value);
+                props.setIsUpdated(false);
             }}
             fullWidth={true}
             id="outlined-basic" 
@@ -94,6 +97,7 @@ function UpdateCard(props) {
         <TextField 
             onChange={(e) => {
                 setImageLink(e.target.value);
+                props.setIsUpdated(false);
             }}
             fullWidth={true}
             id="outlined-basic" 
@@ -129,7 +133,8 @@ function UpdateCard(props) {
                     return response.json();
                 })
                 .then((data) => {
-                    alert(`${data.title} added`);
+                    // alert(`${data.title} added`);
+                    props.setIsUpdated(true);
                 })
                 .catch((err) => {
                     console.log("Error is: ");
