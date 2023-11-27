@@ -27,8 +27,7 @@ function Courses() {
         });
     }, []);
 
-    return <div>
-        Courses
+    return <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center"}}>
         {courses.map((course, index) => {
             return <div key={index}>
                 <DisplayCourse course={course} />
