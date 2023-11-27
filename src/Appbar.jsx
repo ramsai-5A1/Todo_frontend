@@ -40,7 +40,6 @@ function Appbar() {
         }}>
         <div style={{backgroundColor: ""}}>
             <Typography variant={"h6"}>Coursera</Typography>
-            {emailThere}
         </div>
         
 
@@ -69,14 +68,7 @@ function Appbar() {
             </div>}
 
             {emailThere && <div>
-                <Button 
-                variant={"contained"}
-                onClick={() => {
-                    // window.location = "/login"
-                    console.log("Clicked on email");
-                }}
-                >{userEmail}
-                </Button>
+                {userEmail}
             </div>}
             
             {emailThere && <div>

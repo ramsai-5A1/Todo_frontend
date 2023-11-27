@@ -5,6 +5,7 @@ function AddCourse() {
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [imageLink, setImageLink] = useState("");
 
     return <div style={{
         display: "flex",
@@ -42,17 +43,30 @@ function AddCourse() {
 
         <br/><br/>
 
+        <TextField 
+            onChange={(e) => {
+                setImageLink(e.target.value);
+            }}
+            fullWidth={true}
+            id="outlined-basic" 
+            label="Image link" 
+            variant="outlined"
+        />
+
+        <br/><br/>
+
         <Button 
             size={"medium"}
             variant='contained'
             onClick={() => {
                 let curr = {
                     title: title,
-                    description: description
+                    description: description,
+                    imageLink: imageLink
                 };
 
                 let token = localStorage.getItem("token");
-                fetch("http://localhost:3001/todos", {
+                fetch("http://localhost:3001/addcourse", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -67,8 +81,8 @@ function AddCourse() {
                     return response.json();
                 })
                 .then((data) => {
-                    console.log("Response data is: ");
-                    console.log(data);
+                    const dataString = JSON.stringify(data);
+                    alert(`${data.title} added`);
                 })
                 .catch((err) => {
                     console.log("Error is: ");
