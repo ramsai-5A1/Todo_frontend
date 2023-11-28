@@ -7,7 +7,7 @@ function AddCourse() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [imageLink, setImageLink] = useState("");
-    const [price, setPrice] = useState("");
+    const [price, setPrice] = useState(0);
 
     return <div style={{
         display: "flex",

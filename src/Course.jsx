@@ -69,10 +69,10 @@ function Course() {
 }
 
 function UpdateCard(props) {
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [imageLink, setImageLink] = useState("");
-    const [price, setPrice] = useState("");
+    const [title, setTitle] = useState(props.course.title);
+    const [description, setDescription] = useState(props.course.description);
+    const [imageLink, setImageLink] = useState(props.course.imageLink);
+    const [price, setPrice] = useState(props.course.price);
 
     return <div style={{
         display: "flex",
@@ -84,12 +84,12 @@ function UpdateCard(props) {
             width: 400, 
             padding: 20
         }}>
-
         <TextField 
             onChange={(e) => {
                 setTitle(e.target.value);
                 props.setIsUpdated(false);
             }}
+            defaultValue={props.course.title}
             fullWidth={true}
             id="outlined-basic" 
             label="Title" 
@@ -103,6 +103,7 @@ function UpdateCard(props) {
                 setDescription(e.target.value);
                 props.setIsUpdated(false);
             }}
+            defaultValue={props.course.description}
             fullWidth={true}
             id="outlined-basic" 
             label="Description" 
@@ -116,6 +117,7 @@ function UpdateCard(props) {
                 setImageLink(e.target.value);
                 props.setIsUpdated(false);
             }}
+            defaultValue={props.course.imageLink}
             fullWidth={true}
             id="outlined-basic" 
             label="Image link" 
@@ -133,6 +135,7 @@ function UpdateCard(props) {
             id="outlined-basic" 
             label="price" 
             variant="outlined"
+            defaultValue={props.course.price}
         />
 
         
