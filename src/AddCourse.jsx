@@ -7,6 +7,7 @@ function AddCourse() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [imageLink, setImageLink] = useState("");
+    const [price, setPrice] = useState("");
 
     return <div style={{
         display: "flex",
@@ -56,6 +57,18 @@ function AddCourse() {
 
         <br/><br/>
 
+        <TextField 
+            onChange={(e) => {
+                setPrice(e.target.value);
+            }}
+            fullWidth={true}
+            id="outlined-basic" 
+            label="price" 
+            variant="outlined"
+        />
+
+        <br/><br/>
+
         <Button 
             size={"medium"}
             variant='contained'
@@ -63,7 +76,8 @@ function AddCourse() {
                 let payload = {
                     title: title,
                     description: description,
-                    imageLink: imageLink
+                    imageLink: imageLink,
+                    price: price
                 };
 
                 let token = localStorage.getItem("token");

@@ -60,6 +60,7 @@ function DisplayCourse(props) {
     }}>
         <Typography textAlign={"center"} variant={"h4"}>{props.course.title}</Typography>
         <Typography textAlign={"center"} variant={"subtitle1"}>{props.course.description}</Typography>
+        <Typography textAlign={"center"} variant={"subtitle2"}>Price: Rs.{props.course.price}/-</Typography>
         <img src={props.course.imageLink} style={{width: 300}}></img>
     </Card>
 }

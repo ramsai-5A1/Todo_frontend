@@ -72,6 +72,7 @@ function UpdateCard(props) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [imageLink, setImageLink] = useState("");
+    const [price, setPrice] = useState("");
 
     return <div style={{
         display: "flex",
@@ -123,6 +124,20 @@ function UpdateCard(props) {
 
         <br/><br/>
 
+        <TextField 
+            onChange={(e) => {
+                setPrice(e.target.value);
+                props.setIsUpdated(false);
+            }}
+            fullWidth={true}
+            id="outlined-basic" 
+            label="price" 
+            variant="outlined"
+        />
+
+        
+        <br/><br/>
+
         <Button 
             size={"medium"}
             variant='contained'
@@ -131,7 +146,8 @@ function UpdateCard(props) {
                 let payload = {
                     title: title,
                     description: description,
-                    imageLink: imageLink
+                    imageLink: imageLink,
+                    price: price
                 };
 
                 let headers = {
@@ -186,6 +202,7 @@ function CourseCard(props) {
         }}>
             <Typography textAlign={"center"} variant={"h4"}>{props.course.title}</Typography>
             <Typography textAlign={"center"} variant={"subtitle1"}>{props.course.description}</Typography>
+            <Typography textAlign={"center"} variant={"subtitle2"}>Price: Rs.{props.course.price}/-</Typography>
             <img src={props.course.imageLink} style={{width: 300}}></img>
         </Card>
     </div>
