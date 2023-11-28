@@ -7,7 +7,7 @@ function Courses() {
 
     useEffect(() => {
         let token = localStorage.getItem("token");
-        fetch("http://localhost:3001/getCourses", {
+        fetch("http://localhost:3001/admin/getCourses", {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`

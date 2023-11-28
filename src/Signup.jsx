@@ -59,7 +59,7 @@ function Signup(props) {
                                 password: password
                             };
 
-                            fetch("http://localhost:3001/signup", {
+                            fetch("http://localhost:3001/user/signup", {
                                 method: "POST",
                                 headers: {
                                     "Content-Type": "application/json"

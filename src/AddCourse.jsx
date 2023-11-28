@@ -66,7 +66,7 @@ function AddCourse() {
                 };
 
                 let token = localStorage.getItem("token");
-                fetch("http://localhost:3001/addcourse", {
+                fetch("http://localhost:3001/admin/addcourse", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

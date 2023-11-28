@@ -12,7 +12,7 @@ function Course() {
 
     useEffect(() => {
         let token = localStorage.getItem("token");
-        fetch("http://localhost:3001/getCourses", {
+        fetch("http://localhost:3001/admin/getCourses", {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -118,7 +118,7 @@ function UpdateCard(props) {
                 };
 
                 let token = localStorage.getItem("token");
-                fetch("http://localhost:3001/courses/" + props.course.id, {
+                fetch("http://localhost:3001/admin/courses/" + props.course.id, {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
