@@ -1,5 +1,6 @@
 import './Signin.css';
 import { Button, TextField, Card, Typography } from '@mui/material';
+import axios from 'axios';
 import { useState } from 'react';
 
 function Signin(props) {
@@ -54,33 +55,44 @@ function Signin(props) {
                         size={"large"}
                         variant='contained'
                         onClick={() => {
-                            let curr = {
+                            let payload = {
                                 userName: email,
                                 password: password
                             };
 
-                            fetch("http://localhost:3001/user/login", {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json"
-                                },
-                                body: JSON.stringify(curr)
-                            })
-                            .then((response) => {
-                                if (!response.ok) {
-                                    throw new Error('Network response was not ok.');
+                            const callBackendAsyncManner = async() => {
+                                try {   
+                                    const response = await axios.post("http://localhost:3001/user/login", payload);
+                                    localStorage.setItem("token", response.data.token);
+                                    window.location = '/addcourse';
+                                } catch (err) {
+                                    console.error(err);
                                 }
-                                return response.json();
-                            })
-                            .then((data) => {
-                                let token = data.token;
-                                localStorage.setItem("token", token);
-                                window.location = "/addcourse";
-                            })
-                            .catch((err) => {
-                                console.log("Error is: ");
-                                console.log(err);
-                            })
+                            }
+                            callBackendAsyncManner();
+
+                            // fetch("http://localhost:3001/user/login", {
+                            //     method: "POST",
+                            //     headers: {
+                            //         "Content-Type": "application/json"
+                            //     },
+                            //     body: JSON.stringify(curr)
+                            // })
+                            // .then((response) => {
+                            //     if (!response.ok) {
+                            //         throw new Error('Network response was not ok.');
+                            //     }
+                            //     return response.json();
+                            // })
+                            // .then((data) => {
+                            //     let token = data.token;
+                            //     localStorage.setItem("token", token);
+                            //     window.location = "/addcourse";
+                            // })
+                            // .catch((err) => {
+                            //     console.log("Error is: ");
+                            //     console.log(err);
+                            // })
                         }}
 
                         >

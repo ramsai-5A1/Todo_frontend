@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Card, Typography } from "@mui/material";
+import axios from "axios";
 
 function Courses() {
 
@@ -7,24 +8,39 @@ function Courses() {
 
     useEffect(() => {
         let token = localStorage.getItem("token");
-        fetch("http://localhost:3001/admin/getCourses", {
-            method: "GET",
-            headers: {
+
+        const callBackendAsyncManner = async () => {
+            const headers = {
                 "Authorization": `Bearer ${token}`
             }
-        })
-        .then((response) => {
-            if(!response.ok) {
-                throw new Error('Network response was not okkk.');
+
+            try {
+                const response = await axios.get("http://localhost:3001/admin/getCourses", { headers });
+                setCourses(response.data);
+            } catch(err) {
+                console.error(err);
             }
-            return response.json();
-        }) 
-        .then((data) => {
-            setCourses(data);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+        }
+
+        callBackendAsyncManner();
+        // fetch("http://localhost:3001/admin/getCourses", {
+        //     method: "GET",
+        //     headers: {
+        //         "Authorization": `Bearer ${token}`
+        //     }
+        // })
+        // .then((response) => {
+        //     if(!response.ok) {
+        //         throw new Error('Network response was not okkk.');
+        //     }
+        //     return response.json();
+        // }) 
+        // .then((data) => {
+        //     setCourses(data);
+        // })
+        // .catch((err) => {
+        //     console.log(err);
+        // });
     }, []);
 
     return <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center"}}>
