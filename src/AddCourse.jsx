@@ -1,5 +1,6 @@
 import { Button, TextField, Card } from "@mui/material";
 import { useState } from "react";
+import axios from "axios";
 
 function AddCourse() {
 
@@ -58,36 +59,45 @@ function AddCourse() {
         <Button 
             size={"medium"}
             variant='contained'
-            onClick={() => {
-                let curr = {
+            onClick={async() => {
+                let payload = {
                     title: title,
                     description: description,
                     imageLink: imageLink
                 };
 
                 let token = localStorage.getItem("token");
-                fetch("http://localhost:3001/admin/addcourse", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${token}`
-                    },
-                    body: JSON.stringify(curr)
-                })
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok.');
-                    }
-                    return response.json();
-                })
-                .then((data) => {
-                    const dataString = JSON.stringify(data);
-                    alert(`${data.title} added`);
-                })
-                .catch((err) => {
-                    console.log("Error is: ");
-                    console.log(err);
-                })
+                const headers = {
+                    'Authorization': `Bearer ${token}`
+                };
+
+                const response = await axios.post("http://localhost:3001/admin/addcourse", payload, { headers });
+                let data = response.data;
+                const dataString = JSON.stringify(data);
+                alert(`${data.title} added`);
+
+                // fetch("http://localhost:3001/admin/addcourse", {
+                //     method: "POST",
+                //     headers: {
+                //         "Content-Type": "application/json",
+                //         "Authorization": `Bearer ${token}`
+                //     },
+                //     body: JSON.stringify(curr)
+                // })
+                // .then((response) => {
+                //     if (!response.ok) {
+                //         throw new Error('Network response was not ok.');
+                //     }
+                //     return response.json();
+                // })
+                // .then((data) => {
+                //     const dataString = JSON.stringify(data);
+                //     alert(`${data.title} added`);
+                // })
+                // .catch((err) => {
+                //     console.log("Error is: ");
+                //     console.log(err);
+                // })
             }}
 
             >

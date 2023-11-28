@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { Card, Typography, TextField, Button } from "@mui/material";
+import axios from "axios";
 
 function Course() {
 
@@ -11,25 +12,40 @@ function Course() {
     const [isupdated, setIsUpdated] = useState(false);
 
     useEffect(() => {
-        let token = localStorage.getItem("token");
-        fetch("http://localhost:3001/admin/getCourses", {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${token}`
+        const handleAsyncOperation = async () => {
+            let token = localStorage.getItem("token");
+            const headers = {
+                'Authorization': `Bearer ${token}`
+            };
+            try {
+                const response = await axios.get("http://localhost:3001/admin/getCourses", { headers });
+                setCourses(response.data);
+            } catch(err) {
+                console.log(err);
             }
-        })
-        .then((response) => {
-            if(!response.ok) {
-                throw new Error("Network response was not okkk.");
-            }
-            return response.json();
-        })
-        .then((data) => {
-            setCourses(data);
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+        }
+        handleAsyncOperation();
+
+        // fetch("http://localhost:3001/admin/getCourses", {
+        //     method: "GET",
+        //     headers: {
+        //         "Authorization": `Bearer ${token}`
+        //     }
+        // })
+        // .then((response) => {
+        //     if(!response.ok) {
+        //         throw new Error("Network response was not okkk.");
+        //     }
+        //     return response.json();
+        // })
+        // .then((data) => {
+        //     console.log("Setting data");
+        //     setCourses(data);
+        // })
+        // .catch((err) => {
+        //     console.log("Got error: ");
+        //     console.log(err);
+        // })
     }, [isupdated]);
 
     let course = null;
@@ -110,36 +126,45 @@ function UpdateCard(props) {
         <Button 
             size={"medium"}
             variant='contained'
-            onClick={() => {
-                let curr = {
+            onClick={async() => {
+                let token = localStorage.getItem("token");
+                let payload = {
                     title: title,
                     description: description,
                     imageLink: imageLink
                 };
 
-                let token = localStorage.getItem("token");
-                fetch("http://localhost:3001/admin/courses/" + props.course.id, {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${token}`
-                    },
-                    body: JSON.stringify(curr)
-                })
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok.');
-                    }
-                    return response.json();
-                })
-                .then((data) => {
-                    // alert(`${data.title} added`);
+                let headers = {
+                    'Authorization': `Bearer ${token}`
+                };
+                try {
+                    const response = await axios.put("http://localhost:3001/admin/courses/" + props.course.id, payload, {headers});
                     props.setIsUpdated(true);
-                })
-                .catch((err) => {
-                    console.log("Error is: ");
+                } catch(err) {
                     console.log(err);
-                })
+                }
+                
+                // fetch("http://localhost:3001/admin/courses/" + props.course.id, {
+                //     method: "PUT",
+                //     headers: {
+                //         "Content-Type": "application/json",
+                //         "Authorization": `Bearer ${token}`
+                //     },
+                //     body: JSON.stringify(curr)
+                // })
+                // .then((response) => {
+                //     if (!response.ok) {
+                //         throw new Error('Network response was not ok.');
+                //     }
+                //     return response.json();
+                // })
+                // .then((data) => {
+                //     props.setIsUpdated(true);
+                // })
+                // .catch((err) => {
+                //     console.log("Error is: ");
+                //     console.log(err);
+                // })
             }}
 
             >
