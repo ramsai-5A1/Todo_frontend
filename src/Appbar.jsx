@@ -67,9 +67,35 @@ function Appbar() {
                 </Button>
             </div>}
 
-            {emailThere && <div>
+            {emailThere && <div style={{fontWeight: "bold", fontSize: 20}}>
                 {userEmail}
             </div>}
+
+            {<div style={{margin: 10}}></div>}
+
+            {emailThere && <div>
+                <Button 
+                variant={"contained"}
+                onClick={() => {
+                    window.location = "/addcourse";
+                }}
+                >Add-Course
+                </Button>
+            </div>}
+
+            {<div style={{margin: 10}}></div>}
+
+            {emailThere && <div>
+                <Button 
+                variant={"contained"}
+                onClick={() => {
+                    window.location = "/courses";
+                }}
+                >Show courses
+                </Button>
+            </div>}
+
+            {<div style={{margin: 10}}></div>}
             
             {emailThere && <div>
                 <Button 
@@ -83,6 +109,9 @@ function Appbar() {
                 >Log-out
                 </Button>
             </div>}
+
+            {<div style={{margin: 10}}></div>}
+
         </div>
     </div>
 }
